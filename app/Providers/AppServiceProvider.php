@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-// use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Url;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,10 +12,10 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
-    public function boot(): void
+    public function boot(Url $url): void
     {
-        // if (env('APP_ENV') === 'production') {
-        //     URL::forceScheme('https');
-        // }
+        if (env('APP_ENV') === 'production') {
+            $url->forceScheme('https');
+        }
     }
 }
