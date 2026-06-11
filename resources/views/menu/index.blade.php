@@ -57,7 +57,7 @@
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4">
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-300">
+                                                <span class="p-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-300">
                                                     {{ $menu->category->name ?? 'Uncategorized' }}
                                                 </span>
                                             </td>

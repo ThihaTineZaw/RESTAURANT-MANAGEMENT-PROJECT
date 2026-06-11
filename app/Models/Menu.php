@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Category;
 
 class Menu extends Model
 {
@@ -12,4 +13,10 @@ class Menu extends Model
         'image',
         'category_id',
     ];
+
+    function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }
