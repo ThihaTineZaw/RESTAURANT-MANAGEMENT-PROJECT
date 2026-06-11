@@ -1,31 +1,14 @@
-#!/usr/bin/env bash
+#!/bin/sh
+set -e
 
-echo "Running composer"
-composer install --no-dev --working-dir=/var/www/html
-
-echo "Installing npm dependencies"
-npm install
-
-echo "Building assets"
-npm run build
-
-echo "Optimizing Laravel..."
-php artisan optimize:clear
-
-echo "Clearing config..."
-php artisan config:clear
-
-echo "Clearing cache..."
-php artisan cache:clear
-
-echo "Caching config..."
+echo "Caching Laravel configuration..."
 php artisan config:cache
-
-echo "Caching routes..."
 php artisan route:cache
+php artisan view:cache
 
-echo "Running migrations..."
-php artisan migrate --force
+if [ "$RUN_MIGRATIONS" = "true" ]; then
+    echo "Running database migrations..."
+    php artisan migrate:fresh --seed  --force
+fi
 
-echo "Starting server..."
-php artisan serve --host=0.0.0.0 --port=$PORT
+exec "$@"
