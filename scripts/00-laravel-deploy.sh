@@ -3,6 +3,12 @@
 echo "Running composer"
 composer install --no-dev --working-dir=/var/www/html
 
+echo "Installing npm dependencies"
+npm install
+
+echo "Building assets"
+npm run build
+
 echo "Optimizing Laravel..."
 php artisan optimize:clear
 
@@ -23,9 +29,3 @@ php artisan migrate --force
 
 echo "Starting server..."
 php artisan serve --host=0.0.0.0 --port=$PORT
-
-echo "Installing npm dependencies"
-npm install
-
-echo "Building assets"
-npm run build
