@@ -1,88 +1,71 @@
-# ============================================
-# Stage 1: Build frontend assets (Node.js)
-# ============================================
+# -----------------------------
+# 1) Frontend build
+# -----------------------------
 FROM node:20-alpine AS frontend-builder
 
 WORKDIR /app
 
-# Copy package files first (for caching)
-COPY package.json package-lock.json* ./
-
-# Install npm dependencies
+COPY package*.json ./
 RUN npm ci
 
-# Copy all source code
 COPY . .
-
-# Build Tailwind CSS + Vite assets
 RUN npm run build
 
-# ============================================
-# Stage 2: Install PHP dependencies (Composer)
-# ============================================
-FROM composer:2 AS composer-builder
+# -----------------------------
+# 2) Final app image
+# -----------------------------
+FROM php:8.3-fpm-alpine
 
-WORKDIR /app
-
-COPY composer.json composer.lock ./
-
-RUN composer install \
-    --no-dev \
-    --no-scripts \
-    --no-autoloader \
-    --prefer-dist
-
-COPY . .
-
-RUN composer dump-autoload --optimize
-
-# ============================================
-# Stage 3: Final production image
-# ============================================
-FROM php:8.2-fpm-alpine
-
-# Install system dependencies
+# system packages
 RUN apk add --no-cache \
     nginx \
     supervisor \
+    git \
+    curl \
+    unzip \
     libpq-dev \
     libzip-dev \
-    zip \
-    unzip \
-    curl
+    oniguruma-dev \
+    libxml2-dev
 
-# Install PHP extensions
+# php extensions
 RUN docker-php-ext-install \
     pdo \
     pdo_pgsql \
-    pgsql \
+    mbstring \
     zip \
+    dom \
     opcache
 
-# Configure PHP for production
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+# copy composer binary
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Set working directory
 WORKDIR /var/www/html
 
-# Copy application code
+# copy composer files first
+COPY composer.json composer.lock ./
+
+# install php deps
+RUN composer install \
+    --no-dev \
+    --no-interaction \
+    --prefer-dist \
+    --optimize-autoloader \
+    --no-scripts
+
+# copy project files
 COPY . .
 
-# Copy composer dependencies from builder
-COPY --from=composer-builder /app/vendor ./vendor
-
-# Copy built frontend assets from builder
+# copy built frontend assets
 COPY --from=frontend-builder /app/public/build ./public/build
 
-# Create Nginx config
+# nginx config
 RUN cat > /etc/nginx/http.d/default.conf << 'EOF'
 server {
     listen 80;
     server_name _;
     root /var/www/html/public;
     index index.php;
-
-    client_max_body_size 50M;
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
@@ -101,14 +84,13 @@ server {
 }
 EOF
 
-# Create Supervisor config
+# supervisor config
 RUN cat > /etc/supervisord.conf << 'EOF'
 [supervisord]
 nodaemon=true
-user=root
 
 [program:php-fpm]
-command=php-fpm
+command=php-fpm -F
 autostart=true
 autorestart=true
 
@@ -118,36 +100,27 @@ autostart=true
 autorestart=true
 EOF
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+# permissions
+RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Create entrypoint script
-RUN cat > /var/www/html/docker-entrypoint.sh << 'SCRIPT'
+# entrypoint
+RUN cat > /usr/local/bin/start.sh << 'EOF'
 #!/bin/sh
 set -e
 
-echo "=== Running migrations ==="
-php artisan migrate --force
-
-echo "=== Caching config ==="
-php artisan config:cache
-
-echo "=== Caching routes ==="
-php artisan route:cache
-
-echo "=== Caching views ==="
-php artisan view:cache
-
-echo "=== Creating storage link ==="
+php artisan config:cache || true
+php artisan route:cache || true
+php artisan view:cache || true
+php artisan migrate --force || true
 php artisan storage:link || true
 
-echo "=== Starting application ==="
 exec /usr/bin/supervisord -c /etc/supervisord.conf
-SCRIPT
+EOF
 
-RUN chmod +x /var/www/html/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/start.sh
 
 EXPOSE 80
 
-ENTRYPOINT ["/var/www/html/docker-entrypoint.sh"]
+CMD ["/usr/local/bin/start.sh"]
