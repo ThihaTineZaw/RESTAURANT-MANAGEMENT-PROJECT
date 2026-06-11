@@ -87,10 +87,6 @@ return [
     'pgsql' => [
     'driver' => 'pgsql',
     'url' => env('DATABASE_URL'),
-
-    'charset' => 'utf8',
-    'prefix' => '',
-    'schema' => 'public',
     'sslmode' => 'require',
 ],
 
