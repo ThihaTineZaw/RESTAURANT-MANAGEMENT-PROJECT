@@ -22,7 +22,7 @@
                             No categories yet. <a href="{{ route('categories.create') }}" class="text-primary-600 dark:text-primary-400 hover:underline">Add your first category</a> to get started.
                         </div>
                     @else
-                        <div class="overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+                        <div class="overflow-auto rounded-2xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
                             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm transition-colors duration-200">
                                 <thead class="bg-gray-50 dark:bg-gray-900 text-left text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400 transition-colors duration-200">
                                     <tr>

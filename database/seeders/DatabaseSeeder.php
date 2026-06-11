@@ -38,10 +38,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Menu::insert([
-            ['name' => 'Appetizer 1', 'price' => 10.00, 'image' => $faker->imageUrl(), 'category_id' => 1, 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Main Course 1', 'price' => 20.00, 'image' => $faker->imageUrl(), 'category_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Dessert 1', 'price' => 5.00, 'image' => $faker->imageUrl(), 'category_id' => 3, 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Beverage 1', 'price' => 2.00, 'image' => $faker->imageUrl(), 'category_id' => 4, 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Appetizer 1', 'price' => 10.00, 'image' => 'simple.jpg', 'description' => $faker->paragraph(), 'category_id' => 1, 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Main Course 1', 'price' => 20.00, 'image' => 'simple.jpg', 'description' => $faker->paragraph(), 'category_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Dessert 1', 'price' => 5.00, 'image' => 'simple.jpg', 'description' => $faker->paragraph(), 'category_id' => 3, 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Beverage 1', 'price' => 2.00, 'image' => 'simple.jpg', 'description' => $faker->paragraph(), 'category_id' => 4, 'created_at' => now(), 'updated_at' => now()],
         ]);
 
        
