@@ -1,19 +1,30 @@
 <?php
 
-
+use App\Http\Controllers\CashierController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
+<<<<<<< Updated upstream
 use App\Http\Controllers\TableController;
+=======
+
+>>>>>>> Stashed changes
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< Updated upstream
 Route::get('logout', function () {
     Auth::logout();
     return redirect()->route('login');
 });
+=======
+
+Route::get('/cashier', [CashierController::class, 'index'])->name('cashier.index');
+Route::get('/cashier/showMenuByCategory/{id}', [CashierController::class, 'showMenuByCategory'])->name('cashier.showMenuByCategory');
+Route::get('/cashier/order', [CashierController::class, 'order'])->name('cashier.order');
+>>>>>>> Stashed changes
 
 Route::middleware('auth')->group(function () {
     // Category

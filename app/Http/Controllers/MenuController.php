@@ -81,7 +81,7 @@ class MenuController extends Controller
     public function update(Request $request, Menu $menu)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255|unique:menus,name',
+            'name' => 'required|string|max:255|unique:menus,name,' . $menu->id,
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|integer|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',

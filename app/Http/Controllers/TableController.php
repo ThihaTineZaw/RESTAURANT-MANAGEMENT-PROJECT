@@ -53,7 +53,7 @@ class TableController extends Controller
     public function update(Request $request, Table $table)
     {
         $data = $request->validate([
-            'table_number' => 'required|string|unique:tables,table_number',
+            'table_number' => 'required|string|unique:tables,table_number,' . $table->id,
             'status' => 'required|string',
         ]);
 
