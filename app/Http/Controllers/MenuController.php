@@ -18,7 +18,7 @@ class MenuController extends Controller
     public function index()
     {
         
-        $menus = Menu::with('category')->paginate(3);
+        $menus = Menu::with('category')->paginate(10);
         // dd($menus);
 
         return view('menu.index', compact('menus'));
@@ -40,7 +40,7 @@ class MenuController extends Controller
     {
 
         $data = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:menus,name',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|integer|exists:categories,id',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
@@ -81,7 +81,7 @@ class MenuController extends Controller
     public function update(Request $request, Menu $menu)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:menus,name',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|integer|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',

@@ -40,6 +40,7 @@
                         <div class="hidden lg:flex items-center gap-4">
                             @auth
                                 <span class="text-sm text-gray-600 dark:text-gray-400">{{ Auth::user()->name }}</span>
+                                <a href="{{ route('logout') }}" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 px-2 rounded-lg">Logout</a>
                             @endauth
                         </div>
                     </div>
@@ -50,10 +51,7 @@
         @if(session('success'))
             <div class="bg-primary-50 dark:bg-primary-950 border-b border-primary-200 dark:border-primary-800 transition-colors duration-200">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                    <div class="flex items-center gap-3 text-primary-700 dark:text-primary-300">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
+                    <div class="flex items-center justify-center gap-3 text-primary-700 dark:text-primary-300">
                         <span class="text-sm font-medium">{{ session('success') }}</span>
                     </div>
                 </div>
@@ -82,6 +80,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                         </svg>
                         Menu
+                    </a>
+                      <a href="{{ url('/tables') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('table*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-800' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18M3 6h18M6 6v12M18 6v12M12 6v12"></path>
+                        </svg>
+                        Tables
                     </a>
                     <a href="{{ url('/users') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('users*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-gray-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
