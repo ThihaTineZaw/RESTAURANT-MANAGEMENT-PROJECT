@@ -24,7 +24,7 @@
                             </svg>
                             <h4 class="text-base font-semibold text-gray-900 dark:text-white mb-2">No tables yet</h4>
                             <p class="text-xs text-gray-600 dark:text-gray-400 mb-4">Add your first table to get started.</p>
-                            <a href="{{ route('table.create') }}" class="inline-flex items-center px-4 py-2 text-xs font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-700 transition-colors duration-200">
+                            <a href="{{ route('tables.create') }}" class="inline-flex items-center px-4 py-2 text-xs font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-700 transition-colors duration-200">
                                 Add First Table
                             </a>
                         </div>

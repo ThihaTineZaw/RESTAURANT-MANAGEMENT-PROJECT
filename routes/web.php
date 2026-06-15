@@ -3,28 +3,31 @@
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
-<<<<<<< Updated upstream
 use App\Http\Controllers\TableController;
-=======
+use Illuminate\Support\Facades\Auth;
 
->>>>>>> Stashed changes
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-<<<<<<< Updated upstream
+
 Route::get('logout', function () {
     Auth::logout();
     return redirect()->route('login');
 });
-=======
+
 
 Route::get('/cashier', [CashierController::class, 'index'])->name('cashier.index');
 Route::get('/cashier/showMenuByCategory/{id}', [CashierController::class, 'showMenuByCategory'])->name('cashier.showMenuByCategory');
-Route::get('/cashier/order', [CashierController::class, 'order'])->name('cashier.order');
->>>>>>> Stashed changes
+Route::post('/cashier/order', [CashierController::class, 'order'])->name('cashier.order');
+Route::get('/cashier/orderCheck/{id}', [CashierController::class, 'orderCheck'])->name('cashier.orderCheck');
+Route::post('/cashier/orderAgain/{id}', [CashierController::class, 'orderAgain'])->name('cashier.orderAgain');
+Route::post('/cashier/orderPayment', [CashierController::class, 'orderPayment'])->name('cashier.orderPayment');
+
+
 
 Route::middleware('auth')->group(function () {
     // Category

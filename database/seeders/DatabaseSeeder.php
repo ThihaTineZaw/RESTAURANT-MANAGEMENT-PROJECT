@@ -32,17 +32,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Category::insert([
-            ['name' => 'Appetizers', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Main Courses', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Desserts', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Beverages', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'DRINK', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'CAKE', 'created_at' => now(), 'updated_at' => now()],
         ]);
 
         Menu::insert([
-            ['name' => 'Appetizer 1', 'price' => 10.00, 'image' => 'simple.jpg', 'description' => $faker->paragraph(), 'category_id' => 1, 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Main Course 1', 'price' => 20.00, 'image' => 'simple.jpg', 'description' => $faker->paragraph(), 'category_id' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Dessert 1', 'price' => 5.00, 'image' => 'simple.jpg', 'description' => $faker->paragraph(), 'category_id' => 3, 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Beverage 1', 'price' => 2.00, 'image' => 'simple.jpg', 'description' => $faker->paragraph(), 'category_id' => 4, 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Coke', 'price' => 1500, 'image' => 'cola.jpg', 'description' => $faker->paragraph(), 'category_id' => 1, 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Coffee', 'price' => 2000, 'image' => 'coffee.jpg', 'description' => $faker->paragraph(), 'category_id' => 1, 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Cheese Cake', 'price' => 8000, 'image' => 'cheese.jpg', 'description' => $faker->paragraph(), 'category_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Chocolate Cake', 'price' => 7500, 'image' => 'choco.jpg', 'description' => $faker->paragraph(), 'category_id' => 2, 'created_at' => now(), 'updated_at' => now()],
         ]);
 
         //Table

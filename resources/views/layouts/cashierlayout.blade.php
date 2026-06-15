@@ -62,7 +62,7 @@
         </div>
         @endif
 
-          <main class="flex-1 overflow-auto">
+          <main class="flex-1 overflow-hidden flex flex-col">
         {{ $slot }}
     </main>
     </div>
