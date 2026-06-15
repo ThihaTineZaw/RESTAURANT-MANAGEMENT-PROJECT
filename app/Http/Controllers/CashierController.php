@@ -48,6 +48,10 @@ class CashierController extends Controller
         $order = $request->order;
         $orderDetail = $request->orderDetails;
 
+        if(!$order || !$orderDetail){
+            return response()->json('Order details are required');
+        }
+
         $user = Auth::user();
         $order = Order::create([
             'table_number' => $order['table_number'],
@@ -242,7 +246,7 @@ class CashierController extends Controller
             'status' => 'Paid',
         ]);
 
-        return response()->json('Order payment placed successfully');
+        return response()->json(['message' => 'Order payment placed successfully']);
     }
 
     /**

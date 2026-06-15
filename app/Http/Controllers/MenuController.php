@@ -102,7 +102,6 @@ class MenuController extends Controller
 
             $data['image'] = $filename;
 
-
         }
 
         $menu->update($data);

@@ -220,6 +220,11 @@ $(document).ready(function () {
                 })
             })
 
+            if(orderDetail.orderDetails.length == 0){
+                alert('Please add items to the order');
+                return;
+            }
+
             axios.post('/cashier/order', orderDetail,
                 {
                     headers: {
@@ -230,6 +235,7 @@ $(document).ready(function () {
 
                 if (response.data == 'Order placed successfully') {
                     alert('Order placed successfully');
+                 
                     // window.location.reload();
                     // Clear order list
                     $('#order-list').html('');
@@ -243,7 +249,10 @@ $(document).ready(function () {
 
                 $(`.table-btn[data-table-id="${tableId}"]`)
                     .addClass('bg-yellow-50 dark:bg-yellow-900/20 border-yellow-500 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-100 dark:hover:bg-yellow-900/30');
-                        
+                      $('#order-confirm-btn').hide();
+              $('#order-again-btn').removeClass('hidden');
+                $('#order-payment-btn').removeClass('hidden');
+
                     $(`.table-btn[data-table-id="${tableId}"]`)
                     .find('.table-status').text('unavailable');
                         $(`.table-btn[data-table-id="${tableId}"]`)
@@ -365,30 +374,44 @@ $(document).ready(function () {
 
       
         $('#order-payment-btn').on('click', function (e) {
+            e.preventDefault();
             if($('#order-payment-btn').hasClass('hidden')){
                 return;
             }
-            const orderId = $('#order_id').attr('value').trim();
-            e.preventDefault();
-            axios.post('/cashier/orderPayment/' , {
-                order_id: orderId,
-            },
-                {
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                }
-            ).then(function (response) {
+       
+            $('#payment-model-box').removeClass('hidden');
+ 
+            $('#payment-amount').val($('#total_price').text().replace(' Ks', ''));
 
-                if (response.data == 'Order payment placed successfully') {
-                    alert('Order payment placed successfully');
-                    window.location.reload();
-                }
-            }).catch(function (error) {
-                console.log(error);
-                console.log(error.response.data);
-                alert(error.response.data.message);
+
+            $('#payment-cancel-btn').off('click').on('click', function (e) {
+                e.preventDefault();
+                $('#payment-model-box').addClass('hidden');
             });
+
+
+
+
+            // const orderId = $('#order_id').attr('value').trim();
+            // axios.post('/cashier/orderPayment/' , {
+            //     order_id: orderId,
+            // },
+            //     {
+            //         headers: {
+            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //         }
+            //     }
+            // ).then(function (response) {
+          
+            //     if (response.data.message == 'Order payment placed successfully') {
+            //         alert('Order payment placed successfully');
+            //         window.location.reload();
+            //     }
+            // }).catch(function (error) {
+            //     console.log(error);
+            //     console.log(error.response.data);
+            //     alert(error.response.data.message);
+            // });
         });
     
 });
