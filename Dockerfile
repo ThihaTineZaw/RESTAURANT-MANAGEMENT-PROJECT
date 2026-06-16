@@ -1,126 +1,34 @@
-# -----------------------------
-# 1) Frontend build
-# -----------------------------
-FROM node:20-alpine AS frontend-builder
+FROM node:22 AS frontend
 
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci
+
+RUN npm install
 
 COPY . .
+
 RUN npm run build
 
-# -----------------------------
-# 2) Final app image
-# -----------------------------
-FROM php:8.3-fpm-alpine
 
-# system packages
-RUN apk add --no-cache \
-    nginx \
-    supervisor \
-    git \
-    curl \
-    unzip \
-    libpq-dev \
-    libzip-dev \
-    oniguruma-dev \
-    libxml2-dev
+FROM richarvey/nginx-php-fpm:3.1.6
 
-# php extensions
-RUN docker-php-ext-install \
-    pdo \
-    pdo_pgsql \
-    mbstring \
-    zip \
-    dom \
-    opcache
+COPY . /var/www/html
 
-# copy composer binary
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=frontend /app/public/build /var/www/html/public/build
 
-WORKDIR /var/www/html
 
-# copy composer files first
-COPY composer.json composer.lock ./
+ENV SKIP_COMPOSER 1
+ENV WEBROOT /var/www/html/public
+ENV PHP_ERRORS_STDERR 1
+ENV RUN_SCRIPTS 1
+ENV REAL_IP_HEADER 1
 
-# install php deps
-RUN composer install \
-    --no-dev \
-    --no-interaction \
-    --prefer-dist \
-    --optimize-autoloader \
-    --no-scripts
+ENV APP_ENV production
+ENV APP_DEBUG false
+ENV LOG_CHANNEL stderr
 
-# copy project files
-COPY . .
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
-# copy built frontend assets
-COPY --from=frontend-builder /app/public/build ./public/build
 
-# nginx config
-RUN cat > /etc/nginx/http.d/default.conf << 'EOF'
-server {
-    listen 80;
-    server_name _;
-    root /var/www/html/public;
-    index index.php;
-
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
-
-    location ~ \.php$ {
-        fastcgi_pass 127.0.0.1:9000;
-        fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include fastcgi_params;
-    }
-
-    location ~ /\.(?!well-known).* {
-        deny all;
-    }
-}
-EOF
-
-# supervisor config
-RUN cat > /etc/supervisord.conf << 'EOF'
-[supervisord]
-nodaemon=true
-
-[program:php-fpm]
-command=php-fpm -F
-autostart=true
-autorestart=true
-
-[program:nginx]
-command=nginx -g "daemon off;"
-autostart=true
-autorestart=true
-EOF
-
-# permissions
-RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache \
-    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-
-# entrypoint
-RUN cat > /usr/local/bin/start.sh << 'EOF'
-#!/bin/sh
-set -e
-
-php artisan config:cache || true
-php artisan route:cache || true
-php artisan view:cache || true
-php artisan migrate --force || true
-php artisan storage:link || true
-
-exec /usr/bin/supervisord -c /etc/supervisord.conf
-EOF
-
-RUN chmod +x /usr/local/bin/start.sh
-
-EXPOSE 80
-
-CMD ["/usr/local/bin/start.sh"]
+CMD ["/start.sh"]

@@ -1,14 +1,21 @@
-#!/bin/sh
-set -e
+#!/usr/bin/env bash
 
-echo "Caching Laravel configuration..."
+echo "Running composer"
+composer install --no-dev --working-dir=/var/www/html
+
+echo "Caching config..."
 php artisan config:cache
+
+echo "Caching routes..."
 php artisan route:cache
-php artisan view:cache
 
-if [ "$RUN_MIGRATIONS" = "true" ]; then
-    echo "Running database migrations..."
-    php artisan migrate:fresh --seed  --force
-fi
+echo "Linking storage..."
+php artisan storage:link
 
-exec "$@"
+echo "Running migrations..."
+php artisan migrate --force
+
+echo "Running seeders..."
+php artisan db:seed --force
+
+echo "Deployed successfully"

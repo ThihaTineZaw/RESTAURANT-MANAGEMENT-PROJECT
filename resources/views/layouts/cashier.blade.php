@@ -43,7 +43,7 @@
                             <div class="flex items-center gap-4">
                                 @auth
                                 <span class="text-sm text-gray-600 dark:text-gray-400 font-bold ">{{ ucfirst(Auth::user()->name) }}</span>
-                                <a href="{{ route('logout') }}" class="text-sm  bg-red-500 text-white py-1  dark:text-white  dark:hover:text-white hover:bg-red-700 dark:hover:bg-red-700 px-2 rounded-lg ">Logout</a>
+                           
                                 @endauth
                             </div>
                         </div>
@@ -86,8 +86,16 @@
 
 
             function toggleDarkMode() {
-                const isDark = document.documentElement.classList.toggle('dark');
-                localStorage.setItem('darkMode', isDark);
+                const isDark = document.documentElement.classList.contains('dark');
+                if (isDark) {
+                    // Switch to light mode
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('darkMode', 'false');
+                } else {
+                    // Switch to dark mode
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('darkMode', 'true');
+                }
             }
 
 

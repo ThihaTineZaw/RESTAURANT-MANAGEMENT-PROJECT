@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Restaurant Management') }}</title>
+    <title>{{ config('app.name', 'Restaurant Management Project') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
         (function() {
@@ -35,7 +35,10 @@
                         <div class="flex items-center gap-4">
                                 @auth
                                 <span class="text-sm text-gray-600 dark:text-gray-400 font-bold ">{{ ucfirst(Auth::user()->name) }}</span>
-                                <a href="{{ route('logout') }}" class="text-sm  bg-red-500 text-white py-1  dark:text-white  dark:hover:text-white hover:bg-red-700 dark:hover:bg-red-700 px-2 rounded-lg ">Logout</a>
+                               <form action="{{ route('logout') }}" method="POST" class="flex items-center gap-2">
+                                    @csrf
+                                    <button type="submit" class="text-sm  bg-red-500 text-white py-1   hover:bg-red-700 px-2 rounded-lg ">Logout</button>
+                                </form>
                                 @endauth
                             </div>
                     </div>
@@ -44,7 +47,7 @@
         </nav>
 
         @if(session('success'))
-            <div class="bg-primary-50 dark:bg-primary-950 border-b border-primary-200 dark:border-primary-800 transition-colors duration-200">
+            <div class="bg-primary-50 dark:bg-primary-900 border-b border-primary-200 dark:border-primary-800 transition-colors duration-200">
 
                 <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
                     <div class="flex items-center justify-center gap-3 text-primary-700 dark:text-primary-300">
@@ -69,19 +72,19 @@
                     </button>
                 </div>
                 <nav class="p-4 space-y-1">
-                    <a href="{{ url('/categories') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('categories*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-gray-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                    <a href="{{ url('/categories') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('categories*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                       <img src="{{asset('storage/icons/category.png')}}" alt="category.png" class="w-6 h-6 mr-3">
                         Category
                     </a>
-                    <a href="{{ url('/menu') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('menu*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-gray-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                    <a href="{{ url('/menu') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('menu*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                         <img src="{{asset('storage/icons/menu.png')}}" alt="menu.png" class="w-7 h-7 mr-3">
                         Menu
                     </a>
-                      <a href="{{ url('/tables') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('table*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-800' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                      <a href="{{ url('/tables') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('table*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                         <img src="{{asset('storage/icons/table.png')}}" alt="table.png" class="w-6 h-6 mr-3">
                         Tables
                     </a>
-                    <a href="{{ url('/users') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('users*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-gray-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                    <a href="{{ url('/users') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('users*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                        <img src="{{asset('storage/icons/user.png')}}" alt="user.png" class="w-6 h-6 mr-3">
                         User Management
                     </a>
@@ -157,8 +160,19 @@
             }
 
             function toggleDarkMode() {
-                const isDark = document.documentElement.classList.toggle('dark');
-                localStorage.setItem('darkMode', isDark);
+                const isDark = document.documentElement.classList.contains('dark');
+                
+                if (isDark) {
+                    // Switch to light mode
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('darkMode', 'false');
+                    console.log('Switch to light mode');
+                } else {
+                    // Switch to dark mode
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('darkMode', 'true');
+                    console.log('Switch to dark mode');
+                }
             }
 
             // Initialize

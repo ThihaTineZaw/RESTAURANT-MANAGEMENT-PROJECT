@@ -1,4 +1,4 @@
-<x-mainlayout>
+<x-main-layout>
     <div class="py-4 px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl mx-auto space-y-4">
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm overflow-hidden transition-colors duration-200">
@@ -99,4 +99,4 @@
             }
         });
     </script>
-</x-mainlayout>
+</x-main-layout>
