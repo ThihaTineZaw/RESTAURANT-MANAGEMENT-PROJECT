@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\payment;
 
 class CashierController extends Controller
 {
@@ -244,6 +245,15 @@ class CashierController extends Controller
 
         $order->update([
             'status' => 'Paid',
+        ]);
+        $seller = Auth::user()->name;
+        Payment::create([
+            'order_id' => $orderId,
+            'payment_method' => $request->payment_method,
+            'total_price' => $request->total_price,
+            'received_price' => $request->received_price,
+            'seller' => $seller,
+            'change_price' => $request->change_price,
         ]);
 
         return response()->json(['message' => 'Order payment placed successfully']);

@@ -47,7 +47,7 @@
             </div>
         </div>
         <!-- Payment Model Box  -->
-             <div id="payment-model-box" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div id="payment-model-box" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50">
             <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 max-w-md w-full mx-4 border border-gray-200 dark:border-gray-700">
                 <div class="text-center mb-6">
                     <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
@@ -55,15 +55,30 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Confirm Payment?</h3>
-                     <input type="number" id="payment-amount" class="w-full py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-primary-600 focus:outline-none" disabled>
-                 t
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Receive Amount?</h3>
+
+                    <input type="number" id="payment-amount" class="w-full py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-primary-600 focus:outline-none mb-4" placeholder="Enter amount">
+
+                    <!-- Payment Method Checkboxes -->
+                    <div class="text-left mb-2">
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Payment Method</p>
+                        <div class="flex flex-col gap-3">
+                            <label class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-600 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                                <input type="radio" name="payment-method" value="cash" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:bg-gray-700 dark:border-gray-600" checked>
+                                <span class="text-sm font-medium text-gray-900 dark:text-white">Cash</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-600 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                                <input type="radio" name="payment-method" value="kbz-pay" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:bg-gray-700 dark:border-gray-600">
+                                <span class="text-sm font-medium text-gray-900 dark:text-white">KBZ Pay</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 <div class="flex gap-3">
                     <button id="payment-cancel-btn" class="flex-1 py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold rounded-lg transition-colors duration-200">
                         Cancel Payment
                     </button>
-                    <button id="payment-confirm-btn" class="flex-1 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors duration-200">
+                    <button id="payment-confirm-btn-model" class="flex-1 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors duration-200">
                         Confirm Payment
                     </button>
                 </div>
@@ -129,6 +144,15 @@
                         <span class="text-sm font-semibold text-gray-900 dark:text-white">Total</span>
                         <span id="total_price" class="text-lg font-bold text-primary-600 dark:text-primary-400">0 Ks</span>
                     </div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">Received</span>
+                        <span id="received_price" class="text-lg font-bold text-primary-600 dark:text-primary-400">0 Ks</span>
+                    </div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">Change</span>
+                        <span id="change_price" class="text-lg font-bold text-primary-600 dark:text-primary-400">0 Ks</span>
+                    </div>
+
                     <button id="order-confirm-btn" class="w-full py-2 px-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -146,6 +170,13 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
                         Payment
+                    </button>
+
+                    <button id="payment-confirm-btn" class="hidden mt-4 w-full py-2 px-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Payment Confirm
                     </button>
                 </div>
             </div>

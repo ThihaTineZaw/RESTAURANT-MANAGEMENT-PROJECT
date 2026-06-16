@@ -373,7 +373,7 @@ $(document).ready(function () {
     });
 
       
-        $('#order-payment-btn').on('click', function (e) {
+        $('#order-payment-btn').off('click').on('click', function (e) {
             e.preventDefault();
             if($('#order-payment-btn').hasClass('hidden')){
                 return;
@@ -381,7 +381,7 @@ $(document).ready(function () {
        
             $('#payment-model-box').removeClass('hidden');
  
-            $('#payment-amount').val($('#total_price').text().replace(' Ks', ''));
+            // $('#payment-amount').val($('#total_price').text().replace(' Ks', ''));
 
 
             $('#payment-cancel-btn').off('click').on('click', function (e) {
@@ -389,29 +389,85 @@ $(document).ready(function () {
                 $('#payment-model-box').addClass('hidden');
             });
 
+            $('#payment-confirm-btn-model').off('click').on('click', function (e) {
+                e.preventDefault();
+                const amountInInput = $('#payment-amount').val().trim();
 
+                if(amountInInput == ''){
+                    alert('Please enter amount');
+                    return;
+                }
+ 
+               const amount = Number(amountInInput);
 
+                
+                let totalPrice = $('#total_price').text().replace(' Ks', '');
+                                totalPrice = Number(totalPrice.replace(/,/g, ''));
+                        
+                if(amount < totalPrice){
+                    alert('Amount is less than total price');
+                    $('#payment-amount').val('');
+                    return;
+                }
+                let change = amount - totalPrice;
+              
+                $('#received_price').text(amount.toLocaleString() + ' Ks');
+                $('#change_price').text(change.toLocaleString() + ' Ks');
+                $('#payment-confirm-btn').removeClass('hidden');
+                $('#payment-model-box').addClass('hidden');
+                $('#order-again-btn').hide();
+                $('#order-payment-btn').hide();
 
-            // const orderId = $('#order_id').attr('value').trim();
-            // axios.post('/cashier/orderPayment/' , {
-            //     order_id: orderId,
-            // },
-            //     {
-            //         headers: {
-            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //         }
-            //     }
-            // ).then(function (response) {
-          
-            //     if (response.data.message == 'Order payment placed successfully') {
-            //         alert('Order payment placed successfully');
-            //         window.location.reload();
-            //     }
-            // }).catch(function (error) {
-            //     console.log(error);
-            //     console.log(error.response.data);
-            //     alert(error.response.data.message);
-            // });
+                $('.qty-decrease').hide();
+                $('.qty-increase').hide();
+                $('#open-tables-btn').hide();
+                
+
+        
+           
         });
+        });
+
+        $('#payment-confirm-btn').off('click').on('click', function (e) {
+            e.preventDefault();
+            const paymentMethod = $('input[name="payment-method"]:checked').val();
+          
+            let totalPrice = $('#total_price').text().replace(' Ks', '');
+                                totalPrice = Number(totalPrice.replace(/,/g, ''));
+            let receivedPrice = $('#received_price').text().replace(' Ks', '');
+                                receivedPrice = Number(receivedPrice.replace(/,/g, ''));
+            let change = $('#change_price').text().replace(' Ks', '');
+                                change = Number(change.replace(/,/g, ''));
+            const orderId = $('#order_id').attr('value').trim();
+            const payment = {
+                order_id: orderId,
+                payment_method: paymentMethod,
+                total_price: totalPrice,
+                received_price: receivedPrice,
+                change_price: change,
+            };
+            
+            axios.post('/cashier/orderPayment', payment, {
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                }
+            ).then(function (response) {
+          
+                if (response.data.message == 'Order payment placed successfully') {
+                    alert('Order payment placed successfully');
+                    window.location.reload();
+                }
+            }).catch(function (error) {
+                console.log(error);
+                console.log(error.response.data);
+                alert(error.response.data.message);
+            });
+
+            
+            
+        });
+
+
     
 });

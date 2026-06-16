@@ -28,16 +28,16 @@
                             </svg>
                         </button>
                         <div class="flex-shrink-0 flex items-center ml-3">
-                            <span class="text-xl font-semibold text-gray-900 dark:text-white">{{ config('app.name', 'Restaurant') }}</span>
+                            <span class="text-xl font-semibold text-gray-900 dark:text-white">{{ config('app.name', 'Restaurant Management Project') }}</span>
                         </div>
                     </div>
                     <div class="flex items-center">
                         <div class="flex items-center gap-4">
-                            @auth
-                                <span class="text-sm text-gray-600 dark:text-gray-400">{{ Auth::user()->name }}</span>
-                                <a href="{{ route('logout') }}" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 px-2 rounded-lg">Logout</a>
-                            @endauth
-                        </div>
+                                @auth
+                                <span class="text-sm text-gray-600 dark:text-gray-400 font-bold ">{{ ucfirst(Auth::user()->name) }}</span>
+                                <a href="{{ route('logout') }}" class="text-sm  bg-red-500 text-white py-1  dark:text-white  dark:hover:text-white hover:bg-red-700 dark:hover:bg-red-700 px-2 rounded-lg ">Logout</a>
+                                @endauth
+                            </div>
                     </div>
                 </div>
             </div>
@@ -70,27 +70,19 @@
                 </div>
                 <nav class="p-4 space-y-1">
                     <a href="{{ url('/categories') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('categories*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-gray-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
-                        </svg>
+                      <img src="{{asset('storage/icons/category.png')}}" alt="category.png" class="w-6 h-6 mr-3">
                         Category
                     </a>
                     <a href="{{ url('/menu') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('menu*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-gray-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                        </svg>
+                        <img src="{{asset('storage/icons/menu.png')}}" alt="menu.png" class="w-7 h-7 mr-3">
                         Menu
                     </a>
                       <a href="{{ url('/tables') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('table*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-800' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18M3 6h18M6 6v12M18 6v12M12 6v12"></path>
-                        </svg>
+                        <img src="{{asset('storage/icons/table.png')}}" alt="table.png" class="w-6 h-6 mr-3">
                         Tables
                     </a>
                     <a href="{{ url('/users') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('users*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-gray-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                        </svg>
+                       <img src="{{asset('storage/icons/user.png')}}" alt="user.png" class="w-6 h-6 mr-3">
                         User Management
                     </a>
                 </nav>

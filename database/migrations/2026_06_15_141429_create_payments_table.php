@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 10, 2);
-            $table->decimal('change', 10, 2);
             $table->string('payment_method');
-            $table->string('payment_status');
+            $table->decimal('total_price', 8, 2);
+            $table->decimal('received_price', 8, 2);
+            $table->decimal('change_price', 8, 2);
+            $table->string('seller');
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->timestamps();
         });
     }

@@ -46,9 +46,7 @@
                                                 <div class="flex items-center gap-3">
                                                     <!-- Table Icon Placeholder -->
                                                     <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-primary-100 to-primary-200 dark:from-primary-900 dark:to-primary-800 flex items-center justify-center flex-shrink-0">
-                                                        <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18M3 6h18M6 6v12M18 6v12M12 6v12"></path>
-                                                        </svg>
+                                                        <img src="{{asset('storage/icons/table.png')}}" alt="table.png" class="w-6 h-6">
                                                     </div>
                                                     <div>
                                              

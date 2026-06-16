@@ -20,13 +20,6 @@ Route::get('logout', function () {
 });
 
 
-Route::get('/cashier', [CashierController::class, 'index'])->name('cashier.index');
-Route::get('/cashier/showMenuByCategory/{id}', [CashierController::class, 'showMenuByCategory'])->name('cashier.showMenuByCategory');
-Route::post('/cashier/order', [CashierController::class, 'order'])->name('cashier.order');
-Route::get('/cashier/orderCheck/{id}', [CashierController::class, 'orderCheck'])->name('cashier.orderCheck');
-Route::post('/cashier/orderAgain/{id}', [CashierController::class, 'orderAgain'])->name('cashier.orderAgain');
-Route::post('/cashier/orderPayment', [CashierController::class, 'orderPayment'])->name('cashier.orderPayment');
-
 
 
 Route::middleware('auth')->group(function () {
@@ -53,6 +46,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/tables/{table}/edit', [TableController::class, 'edit'])->name('tables.edit');
     Route::put('/tables/{table}', [TableController::class, 'update'])->name('tables.update');
     Route::delete('/tables/{table}', [TableController::class, 'destroy'])->name('tables.destroy');
+
+    Route::get('/cashier', [CashierController::class, 'index'])->name('cashier.index');
+    Route::get('/cashier/showMenuByCategory/{id}', [CashierController::class, 'showMenuByCategory'])->name('cashier.showMenuByCategory');
+    Route::post('/cashier/order', [CashierController::class, 'order'])->name('cashier.order');
+    Route::get('/cashier/orderCheck/{id}', [CashierController::class, 'orderCheck'])->name('cashier.orderCheck');
+    Route::post('/cashier/orderAgain/{id}', [CashierController::class, 'orderAgain'])->name('cashier.orderAgain');
+    Route::post('/cashier/orderPayment', [CashierController::class, 'orderPayment'])->name('cashier.orderPayment');
+
 
 });
 
