@@ -1,4 +1,4 @@
-<x-main-layout>
+<x-layout-master>
     
     <div class="py-4 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto space-y-4">
@@ -97,4 +97,4 @@
             </div>
         </div>
     </div>
-</x-main-layout>
+</x-layout-master>
