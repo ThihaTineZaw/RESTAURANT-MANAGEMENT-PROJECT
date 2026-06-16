@@ -1,21 +1,28 @@
 #!/usr/bin/env bash
 
-echo "Running composer"
-composer install --no-dev --working-dir=/var/www/html
+echo "Running composer..."
+composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
 
-echo "Caching config..."
-php artisan config:cache
+echo "Generating optimized autoload..."
+composer dump-autoload --optimize
 
-echo "Caching routes..."
-php artisan route:cache
+echo "Clearing Laravel cache..."
+php artisan optimize:clear
 
 echo "Linking storage..."
-php artisan storage:link
+php artisan storage:link || true
 
 echo "Running migrations..."
 php artisan migrate --force
 
 echo "Running seeders..."
 php artisan db:seed --force
+
+
+
+echo "Caching Laravel..."
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
 
 echo "Deployed successfully"
