@@ -73,19 +73,19 @@
                 </div>
                 <nav class="p-4 space-y-1">
                     <a href="{{ url('/categories') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('categories*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                      <img src="{{asset('storage/icons/category.png')}}" alt="category.png" class="w-6 h-6 mr-3">
+                      <img src="{{asset('icons/category.png')}}" alt="category.png" class="w-6 h-6 mr-3">
                         Category
                     </a>
                     <a href="{{ url('/menu') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('menu*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <img src="{{asset('storage/icons/menu.png')}}" alt="menu.png" class="w-7 h-7 mr-3">
+                        <img src="{{asset('icons/menu.png')}}" alt="menu.png" class="w-7 h-7 mr-3">
                         Menu
                     </a>
                       <a href="{{ url('/tables') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('table*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <img src="{{asset('storage/icons/table.png')}}" alt="table.png" class="w-6 h-6 mr-3">
+                        <img src="{{asset('icons/table.png')}}" alt="table.png" class="w-6 h-6 mr-3">
                         Tables
                     </a>
                     <a href="{{ url('/users') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('users*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                       <img src="{{asset('storage/icons/user.png')}}" alt="user.png" class="w-6 h-6 mr-3">
+                       <img src="{{asset('icons/user.png')}}" alt="user.png" class="w-6 h-6 mr-3">
                         User Management
                     </a>
                 </nav>
