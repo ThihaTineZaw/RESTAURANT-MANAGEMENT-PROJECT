@@ -455,8 +455,7 @@ $(document).ready(function () {
             ).then(function (response) {
           
                 if (response.data.message == 'Order payment placed successfully') {
-                    alert('Order payment placed successfully');
-                    window.location.reload();
+                    window.location.href = '/cashier/receipt/' + response.data.order_id;
                 }
             }).catch(function (error) {
                 console.log(error);

@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'thiha',
             'email' => 'thihatinezaw@gmail.com',
             'password' => Hash::make('password'),
+            'role' => 'admin',
         ]);
 
         Category::insert([

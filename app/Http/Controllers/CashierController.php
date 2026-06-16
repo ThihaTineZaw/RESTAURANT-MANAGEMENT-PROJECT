@@ -10,7 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\OrderDetail;
-use App\Models\payment;
+use App\Models\Payment;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+
 
 class CashierController extends Controller
 {
@@ -247,7 +250,7 @@ class CashierController extends Controller
             'status' => 'Paid',
         ]);
         $seller = Auth::user()->name;
-        Payment::create([
+        $payment = Payment::create([
             'order_id' => $orderId,
             'payment_method' => $request->payment_method,
             'total_price' => $request->total_price,
@@ -255,8 +258,29 @@ class CashierController extends Controller
             'seller' => $seller,
             'change_price' => $request->change_price,
         ]);
+        return response()->json(['message' => 'Order payment placed successfully',
+            'order_id' => $orderId,
+        ]);
+        
+    }
 
-        return response()->json(['message' => 'Order payment placed successfully']);
+    public function receipt(int $id)
+    {
+        $order = Order::find($id);  
+        $payment = Payment::where('order_id', $id)->first();
+        
+        $orderDetails = OrderDetail::where('order_id', $id)->get();
+ 
+        foreach ($orderDetails as $orderDetail) {
+            $orderDetail->menu = Menu::find($orderDetail->menu_id);
+        }
+
+
+        
+
+    
+        return view('cashier.receipt', compact('order', 'orderDetails', 'payment'));
+        
     }
 
     /**
