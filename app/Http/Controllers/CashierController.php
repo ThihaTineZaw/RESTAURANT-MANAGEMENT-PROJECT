@@ -247,7 +247,7 @@ class CashierController extends Controller
         ]);
 
         $order->update([
-            'status' => 'Paid',
+            'status' => 'PAID',
         ]);
         $seller = Auth::user()->name;
         $payment = Payment::create([
