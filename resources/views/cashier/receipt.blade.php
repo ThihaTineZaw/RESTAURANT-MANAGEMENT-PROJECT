@@ -131,11 +131,11 @@
 <script>
 window.onload = function () {
     window.print();
-      window.onafterprint = function () {
-        window.location.href = '/cashier';
+        window.addEventListener('focus', function () {
+            window.location.href = '/cashier';
+        },{once: true});
     };
     
-};
 
 
 </script>
