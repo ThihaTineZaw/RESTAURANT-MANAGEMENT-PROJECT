@@ -21,9 +21,7 @@ class AppServiceProvider extends ServiceProvider
        public function boot(UrlGenerator $url)
     {
      
-        Blade::component('main-layout', MainLayout::class);
-        Blade::component('cashier-layout', CashierLayout::class);
-        Blade::component('error-layout', ErrorLayout::class);
+    
     
         if (env('APP_ENV') == 'production') {
             $url->forceScheme('https');

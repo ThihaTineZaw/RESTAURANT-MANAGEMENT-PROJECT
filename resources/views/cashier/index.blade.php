@@ -1,10 +1,10 @@
-<x-cashier-layout>
+<x-layout-cashier>
 
 
     <div class="flex flex-col lg:flex-row h-full overflow-hidden">
 
         <!-- Tables Slide Panel -->
-        <div id="tables-panel" class="fixed inset-y-0 left-0 z-50 w-80 bg-white dark:bg-gray-800 shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out">
+        <div id="tables-panel" class="fixed inset-y-0 left-0 z-50 w-80 bg-white dark:bg-gray-800 shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out ">
             <div class="p-4 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
                 <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Tables</h2>
                 <button id="close-tables-btn" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400">
@@ -15,13 +15,35 @@
             </div>
             <div class="p-4 overflow-y-auto h-full">
                 <div class="grid grid-cols-2 gap-4">
-                    @foreach($tables as $table)
-                        <button class="table-btn p-4 rounded-xl border-2 transition-all duration-200 {{ ($table->status ?? 'available') === 'available' ? 'bg-green-50 dark:bg-green-900/20 border-green-500 text-green-700 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30' : 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-500 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-100 dark:hover:bg-yellow-900/30' }}" data-table-id="{{ $table->id }}" data-table-number="{{ $table->table_number ?? 'Table ' . $table->id }}" data-table-status="{{ $table->status }}">
-                            <img src="{{ asset('storage/icons/table.png') }}" alt="Table" class="w-12 h-12 mx-auto mb-2">
-                            <div class="font-semibold text-sm">{{ $table->table_number ?? 'Table ' . $table->id }}</div>
-                            <div class="text-xs mt-1 table-status">{{ ucfirst($table->status ?? 'available') }}</div>
-                        </button>
-                    @endforeach
+                    
+                  @forelse($tables as $table)
+
+    <button class="table-btn p-4 rounded-xl border-2 transition-all duration-200 {{ ($table->status ?? 'available') === 'available' ? 'bg-green-50 dark:bg-green-900/20 border-green-500 text-green-700 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30' : 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-500 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-100 dark:hover:bg-yellow-900/30' }}"
+        data-table-id="{{ $table->id }}"
+        data-table-number="{{ $table->table_number ?? 'Table ' . $table->id }}"
+        data-table-status="{{ $table->status }}">
+
+        <img src="{{ asset('icons/table.png') }}" alt="Table" class="w-12 h-12 mx-auto mb-2">
+
+        <div class="font-semibold text-sm">
+            {{ $table->table_number ?? 'Table ' . $table->id }}
+        </div>
+
+        <div class="text-xs mt-1 table-status">
+            {{ ucfirst($table->status ?? 'available') }}
+        </div>
+
+    </button>
+
+@empty
+      <div class="col-span-2 flex flex-col items-center justify-center py-10 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+            <img src="{{ asset('icons/table.png') }}" alt="No Tables" class="w-10 h-10 opacity-70">
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">No Tables Found</h3>
+        <p class="text-gray-600 dark:text-gray-400 text-sm">There are no tables available yet.</p>
+    </div>
+@endforelse
                 </div>
             </div>
         </div>
@@ -114,7 +136,7 @@
                     <p id="selected-table" class="text-sm font-semibold text-red-600 dark:text-red-400">No table selected</p>
                 </div>
                 <button id="open-tables-btn" class="p-1 rounded-lg bg-primary-500 hover:bg-primary-600 text-white transition-colors duration-200">
-                    <img src="{{ asset('storage/icons/table.png') }}" alt="Table" class="w-12 h-12">
+                    <img src="{{asset('icons/table.png')}}" alt="Table" class="w-12 h-12">
                 </button>
             </div>
             <div class="flex-1 flex flex-col overflow-hidden">
@@ -217,4 +239,4 @@
 
 
 
-</x-cashier-layout>
+</x-layout-cashier>

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class SellerMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,14 +15,15 @@ class SellerMiddleware
      * @param  Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {   
+    {
         if(!Auth::check()){
-            return redirect('/login');
+            return redirect()->route('login');
         }
 
-        if(Auth::user()->role !== 'seller'){
-            return response()->view('error.403', ['message' => 'You are not authorized to access this page.', 'url' => url('/menu'),'name'=>'Menu'], 403);
+        if(Auth::user()->role !== 'admin'){
+            return response()->view('error.403', ['message' => 'You are not authorized to access this page.', 'url' => url('/cashier'),'name'=>'Cashier'], 403);
         }
+
         return $next($request);
     }
 }

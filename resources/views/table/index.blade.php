@@ -46,7 +46,7 @@
                                                 <div class="flex items-center gap-3">
                                                     <!-- Table Icon Placeholder -->
                                                     <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-primary-100 to-primary-200 dark:from-primary-900 dark:to-primary-800 flex items-center justify-center flex-shrink-0">
-                                                        <img src="{{asset('storage/icons/table.png')}}" alt="table.png" class="w-6 h-6">
+                                                        <img src="{{asset('icons/table.png')}}" alt="table.png" class="w-6 h-6">
                                                     </div>
                                                     <div>
                                              

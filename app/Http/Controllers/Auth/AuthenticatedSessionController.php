@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-
+use App\Models\User;
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -22,13 +22,34 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+ 
+    public function store(Request $request): RedirectResponse
     {
-        $request->authenticate();
+
+       $credentials = $request->validate([
+            'name' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+          if (Auth::attempt($credentials)) {
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('menu.index', absolute: false));
+        if (Auth::user()->role == 'admin') {
+            return redirect()->route('menu.index');
+        }
+
+        if (Auth::user()->role == 'seller') {
+            return redirect()->route('cashier.index');
+        }
+
+        abort(403, 'Invalid role');
+    }
+
+    return back()->withErrors([
+        'message' => 'Invalid username or password.',
+    ]);
+              
     }
 
     /**
