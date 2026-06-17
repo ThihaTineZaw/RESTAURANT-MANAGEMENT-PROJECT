@@ -299,7 +299,7 @@ $(document).ready(function () {
     });
 
     let orderAgain = null;
-    $('#order-again-btn').on('click', function (e) {
+    $('#order-again-btn').off('click').on('click', function (e) {
          orderAgain = {
         order: {
             total_price: 0,
@@ -328,7 +328,8 @@ $(document).ready(function () {
             })
         })
 
-        const orderId = $('#order_id').attr('value').trim();
+        let orderId = $('#order_id').attr('value');
+        orderId = orderId.trim();
 
         $('#order-again-confirm').removeClass('hidden');
 
@@ -391,8 +392,10 @@ $(document).ready(function () {
 
             $('#payment-confirm-btn-model').off('click').on('click', function (e) {
                 e.preventDefault();
-                const amountInInput = $('#payment-amount').val().trim();
+                let amountInInput = $('#payment-amount').val();
+                amountInInput = amountInInput.trim();
 
+                
                 if(amountInInput == ''){
                     alert('Please enter amount');
                     return;
@@ -438,7 +441,8 @@ $(document).ready(function () {
                                 receivedPrice = Number(receivedPrice.replace(/,/g, ''));
             let change = $('#change_price').text().replace(' Ks', '');
                                 change = Number(change.replace(/,/g, ''));
-            const orderId = $('#order_id').attr('value').trim();
+            let orderId = $('#order_id').attr('value');
+                orderId = orderId.trim();
             const payment = {
                 order_id: orderId,
                 payment_method: paymentMethod,

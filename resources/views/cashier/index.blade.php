@@ -4,7 +4,7 @@
     <div class="flex flex-col lg:flex-row h-full overflow-hidden">
 
         <!-- Tables Slide Panel -->
-        <div id="tables-panel" class="fixed inset-y-0 left-0 z-50 w-80 bg-white dark:bg-gray-800 shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out ">
+        <div id="tables-panel" class="fixed inset-y-0 left-0 z-50 w-80 bg-white dark:bg-gray-800 shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out">
             <div class="p-4 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
                 <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Tables</h2>
                 <button id="close-tables-btn" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400">
@@ -36,7 +36,7 @@
     </button>
 
 @empty
-      <div class="col-span-2 flex flex-col items-center justify-center py-10 text-center">
+    <div class="col-span-2 flex flex-col items-center justify-center py-10 text-center">
         <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
             <img src="{{ asset('icons/table.png') }}" alt="No Tables" class="w-10 h-10 opacity-70">
         </div>
