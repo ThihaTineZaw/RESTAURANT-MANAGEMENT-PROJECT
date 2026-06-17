@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('table_number');
-            $table->enum('status', ['PAID', 'UNPAID'])->default('Unpaid');
+            $table->enum('status', ['PAID', 'UNPAID'])->default('UNPAID');
             $table->string('total_price');
             $table->string('seller');
             $table->timestamps();

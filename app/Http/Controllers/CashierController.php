@@ -85,7 +85,7 @@ class CashierController extends Controller
     {
         
 
-          $order = Order::where('table_number', $id)->where('status', 'Unpaid')->first();
+          $order = Order::where('table_number', $id)->where('status', 'UNPAID')->first();
        
             
             if(!$order){
@@ -95,7 +95,7 @@ class CashierController extends Controller
 
         
         
-        $total_price = Order::where('table_number', $id)->where('status', 'Unpaid')->first()->total_price;
+        $total_price = Order::where('table_number', $id)->where('status', 'UNPAID')->first()->total_price;
    
         $orderId = $order->id;
 
@@ -239,7 +239,7 @@ class CashierController extends Controller
 
         $orderId = $request->order_id;
 
-        $order = Order::where('id', $orderId)->where('status', 'Unpaid')->first();  
+        $order = Order::where('id', $orderId)->where('status', 'UNPAID')->first();  
 
 
         Table::where('id', $order->table_number)->update([
