@@ -61,7 +61,7 @@ class CashierController extends Controller
             'table_number' => $order['table_number'],
             'total_price' => $order['total_price'],
             'status' => $order['status'],
-            'seller' => $user->email,
+            'seller' => $user->name,
         ]);
 
         $table = Table::find($order['table_number']);
