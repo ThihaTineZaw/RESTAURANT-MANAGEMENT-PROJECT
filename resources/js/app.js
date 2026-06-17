@@ -306,7 +306,7 @@ $(document).ready(function () {
     });
 
     $(".table-btn").on("click", function () {
-        
+
         let tableNumber = $(this).data("table-id");
 
         const tableStatus = $(this).data("table-status");
@@ -379,8 +379,7 @@ $(document).ready(function () {
                     e.preventDefault();
                     let orderId = $("#order_id").attr("value") || "";
                     orderId = orderId.trim();
-                    console.log(orderAgain);
-                    console.log("/cashier/orderAgain/" + orderId);
+                    
 
                     axios
                         .post("/cashier/orderAgain/" + orderId, orderAgain, {
