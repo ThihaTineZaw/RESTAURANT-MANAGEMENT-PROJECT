@@ -37,7 +37,7 @@ $(document).ready(function () {
         const img = $(this).find('img').attr('menu_img');
 
         const name = $(this).find('h3').attr('menu_name');
-        let price = parseInt($(this).find('span').attr('menu_price').replace(/,/g, ''));
+        let price = parseInt(($(this).find('span').attr('menu_price') || '').replace(/,/g, ''));
         const description = $(this).find('p').attr('menu_description');
 
         let html = `
@@ -211,8 +211,8 @@ $(document).ready(function () {
             orderDetail.order.table_number = tableId;
 
             $('#order-list tr').each(function () {
-                const menuId = $(this).attr('menu_id').trim();
-                const qty = $(this).find('.qty-value').text().trim();
+                const menuId = ($(this).attr('menu_id') || '').trim();
+                const qty = ($(this).find('.qty-value').text() || '').trim();
                 orderDetail.orderDetails.push({
                     menu_id: menuId,
                     qty: qty,
@@ -319,8 +319,8 @@ $(document).ready(function () {
         orderAgain.order.status = 'UNPAID';
         orderAgain.order.table_number = tableId;
         $('#order-list tr').each(function () {
-            const menuId = $(this).attr('menu_id').trim();
-            const qty = $(this).find('.qty-value').text().trim();
+            const menuId = ($(this).attr('menu_id') || '').trim();
+            const qty = ($(this).find('.qty-value').text() || '').trim();
 
             orderAgain.orderDetails.push({
                 menu_id: menuId,
@@ -328,7 +328,7 @@ $(document).ready(function () {
             })
         })
 
-        let orderId = $('#order_id').attr('value');
+        let orderId = ($('#order_id').attr('value') || '');
         orderId = orderId.trim();
 
         $('#order-again-confirm').removeClass('hidden');
@@ -392,7 +392,7 @@ $(document).ready(function () {
 
             $('#payment-confirm-btn-model').off('click').on('click', function (e) {
                 e.preventDefault();
-                let amountInInput = $('#payment-amount').val();
+                let amountInInput = ($('#payment-amount').val() || '');
                 amountInInput = amountInInput.trim();
 
                 
@@ -425,6 +425,7 @@ $(document).ready(function () {
                 $('.qty-increase').hide();
                 $('#open-tables-btn').hide();
                 
+            
 
         
            
@@ -441,7 +442,7 @@ $(document).ready(function () {
                                 receivedPrice = Number(receivedPrice.replace(/,/g, ''));
             let change = $('#change_price').text().replace(' Ks', '');
                                 change = Number(change.replace(/,/g, ''));
-            let orderId = $('#order_id').attr('value');
+            let orderId = ($('#order_id').attr('value') || '');
                 orderId = orderId.trim();
             const payment = {
                 order_id: orderId,
