@@ -343,6 +343,8 @@
             
                 $('#order-again-confirm-btn').off('click').on('click', function (e) {
                     e.preventDefault();
+                        let orderId = ($('#order_id').attr('value') || '');
+            orderId = orderId.trim();
                     console.log(orderAgain);
                     console.log('/cashier/orderAgain/' + orderId);
         
