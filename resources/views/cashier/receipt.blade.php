@@ -128,14 +128,14 @@
 </body>
 </html>
 
+
+
 <script>
 window.onload = function () {
     window.print();
-        window.addEventListener('focus', function () {
-            window.location.href = '/cashier';
-        },{once: true});
-    };
-    
+};
 
-
+window.onafterprint = function () {
+    window.location.href = '/cashier';
+};
 </script>

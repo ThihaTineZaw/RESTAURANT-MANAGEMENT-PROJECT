@@ -23,7 +23,7 @@ class CashierController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $tables = Table::all();
+        $tables = Table::orderBy('id', 'asc')->get();
         return view('cashier.index', compact('categories', 'tables'));
     }
 
@@ -275,10 +275,6 @@ class CashierController extends Controller
             $orderDetail->menu = Menu::find($orderDetail->menu_id);
         }
 
-
-        
-
-    
         return view('cashier.receipt', compact('order', 'orderDetails', 'payment'));
         
     }

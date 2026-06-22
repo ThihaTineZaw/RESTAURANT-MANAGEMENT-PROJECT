@@ -16,7 +16,7 @@
             <div class="p-4 overflow-y-auto h-full">
                 <div class="grid grid-cols-2 gap-4">
                     
-                  @forelse($tables as $table)
+@forelse($tables as $table)
 
     <button class="table-btn p-4 rounded-xl border-2 transition-all duration-200 {{ ($table->status ?? 'available') === 'available' ? 'bg-green-50 dark:bg-green-900/20 border-green-500 text-green-700 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30' : 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-500 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-100 dark:hover:bg-yellow-900/30' }}"
         data-table-id="{{ $table->id }}"
