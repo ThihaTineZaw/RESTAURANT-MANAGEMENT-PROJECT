@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -14,4 +15,9 @@ class Payment extends Model
         'seller',
         'order_id',
     ];
+
+    function order()
+    {
+        return $this->belongsTo(Order::class,'order_id','id');
+    }
 }

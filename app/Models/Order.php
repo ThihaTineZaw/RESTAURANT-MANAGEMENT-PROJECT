@@ -22,6 +22,6 @@ class Order extends Model
 
     function payment()
     {
-        return $this->hasOne(Payment::class);
+        return $this->hasOne(Payment::class,'order_id','id');
     }
 }
