@@ -11,7 +11,7 @@ class ReceiptController extends Controller
     //
     public function index()
     {
-        $orders = Order::with('payment')->where('status', 'Paid')->orderBy('id', 'desc')->paginate(10);
+        $orders = Order::with('payment')->where('status', 'PAID')->orderBy('id', 'desc')->paginate(10);
         return view('receipt.index', compact('orders'));
     }
 

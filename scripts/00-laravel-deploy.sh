@@ -9,14 +9,14 @@ composer dump-autoload --optimize
 echo "Clearing Laravel cache..."
 php artisan optimize:clear
 
-echo "Linking storage..."
-php artisan storage:link || true
+# echo "Linking storage..."
+# php artisan storage:link || true
 
-echo "Running migrations..."
-php artisan migrate --force
+# echo "Running migrations..."
+# php artisan migrate --force
 
-echo "Running seeders..."
-php artisan db:seed --force
+# echo "Running seeders..."
+# php artisan db:seed --force
 
 
 
