@@ -233,7 +233,7 @@ $(document).ready(function () {
             };
 
             const totalPrice = $("#total_price").text().replace(" Ks", "");
-            orderDetail.order.total_price = totalPrice;
+            orderDetail.order.total_price = parseFloat(totalPrice);
             orderDetail.order.status = "UNPAID";
             orderDetail.order.table_number = tableId;
 
@@ -379,7 +379,7 @@ $(document).ready(function () {
                     e.preventDefault();
                     let orderId = $("#order_id").attr("value") || "";
                     orderId = orderId.trim();
-                    
+
 
                     axios
                         .post("/cashier/orderAgain/" + orderId, orderAgain, {
