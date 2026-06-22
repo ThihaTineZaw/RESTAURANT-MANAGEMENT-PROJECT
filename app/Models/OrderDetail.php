@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Order;
+use App\Models\Menu;
 use Illuminate\Database\Eloquent\Model;
 
 class OrderDetail extends Model
@@ -17,5 +18,10 @@ class OrderDetail extends Model
     function order()
     {
         return $this->belongsTo(Order::class);
+    }
+
+    function menu()
+    {
+        return $this->belongsTo(Menu::class);
     }
 }

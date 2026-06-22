@@ -4,8 +4,8 @@ use App\Http\Controllers\CashierController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\TableController;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReceiptController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -48,6 +48,10 @@ Route::middleware('admin')->group(function () {
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+    Route::get('/receipts', [ReceiptController::class, 'index'])->name('receipts.index');
+    Route::get('/receipts/{id}', [ReceiptController::class, 'show'])->name('receipts.show');
+    Route::get('/receipts/{id}/download', [ReceiptController::class, 'download'])->name('receipts.download');
 
     
 

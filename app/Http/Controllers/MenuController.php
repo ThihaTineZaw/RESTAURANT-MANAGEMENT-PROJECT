@@ -18,9 +18,7 @@ class MenuController extends Controller
     public function index()
     {
         
-        $menus = Menu::with('category')->paginate(10);
-        // dd($menus);
-
+        $menus = Menu::with('category')->orderBy('id','desc')->paginate(10);
         return view('menu.index', compact('menus'));
     }
 
@@ -29,7 +27,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('id','desc')->get();
         return view('menu.create', compact('categories'));
     }
 

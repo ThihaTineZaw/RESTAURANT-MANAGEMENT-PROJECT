@@ -88,10 +88,14 @@
                        <img src="{{asset('storage/icons/user.png')}}" alt="user.png" class="w-6 h-6 mr-3">
                         User Management
                     </a>
+                     <a href="{{ url('/receipt') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('receipt*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                       <img src="{{asset('storage/icons/user.png')}}" alt="user.png" class="w-6 h-6 mr-3">
+                        Receipt
+                    </a>
                 </nav>
             </aside>
 
-            <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden"></div>
+          
 
             <main id="main-content" class="flex-1 overflow-auto transition-all duration-300 ml-0">
                 {{ $slot }}
@@ -113,7 +117,7 @@
             const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
             const closeSidebarBtn = document.getElementById('close-sidebar-btn');
             const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
+            // const overlay = document.getElementById('overlay');
             const darkModeToggle = document.getElementById('dark-mode-toggle');
             const sidebarLinks = document.querySelectorAll('.sidebar-link');
             const mainContent = document.getElementById('main-content');
@@ -140,12 +144,12 @@
                 const isOpen = !sidebar.classList.contains('-translate-x-full');
                 if (isOpen) {
                     sidebar.classList.add('-translate-x-full');
-                    overlay.classList.add('hidden');
+                    // overlay.classList.add('hidden');
                     mainContent.classList.remove('lg:ml-64');
                     saveSidebarState(false);
                 } else {
                     sidebar.classList.remove('-translate-x-full');
-                    overlay.classList.remove('hidden');
+                    // overlay.classList.remove('hidden');
                     mainContent.classList.add('lg:ml-64');
                     saveSidebarState(true);
                 }
@@ -154,7 +158,7 @@
             // Close sidebar (for mobile)
             function closeSidebar() {
                 sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
+                // overlay.classList.add('hidden');
                 mainContent.classList.remove('lg:ml-64');
                 saveSidebarState(false);
             }
@@ -186,9 +190,7 @@
                 closeSidebarBtn.addEventListener('click', closeSidebar);
             }
 
-            if (overlay) {
-                overlay.addEventListener('click', closeSidebar);
-            }
+         
 
             if (darkModeToggle) {
                 darkModeToggle.addEventListener('click', toggleDarkMode);

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\OrderDetail;
+use App\Models\Payment;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -17,5 +18,10 @@ class Order extends Model
     function orderItems()
     {
         return $this->hasMany(OrderDetail::class);
+    }
+
+    function payment()
+    {
+        return $this->hasOne(Payment::class);
     }
 }

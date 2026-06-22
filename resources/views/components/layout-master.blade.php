@@ -88,6 +88,10 @@
                        <img src="{{asset('icons/user.png')}}" alt="user.png" class="w-6 h-6 mr-3">
                         User Management
                     </a>
+                      <a href="{{ url('/receipts') }}" class="sidebar-link flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->is('receipts*') ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-700' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                       <img src="{{asset('icons/receipt.png')}}" alt="receipts.png" class="w-6 h-6 mr-3">
+                        Receipt Management
+                    </a>
                 </nav>
             </aside>
 
@@ -140,12 +144,12 @@
                 const isOpen = !sidebar.classList.contains('-translate-x-full');
                 if (isOpen) {
                     sidebar.classList.add('-translate-x-full');
-                    overlay.classList.add('hidden');
+                    // overlay.classList.add('hidden');
                     mainContent.classList.remove('lg:ml-64');
                     saveSidebarState(false);
                 } else {
                     sidebar.classList.remove('-translate-x-full');
-                    overlay.classList.remove('hidden');
+                    // overlay.classList.remove('hidden');
                     mainContent.classList.add('lg:ml-64');
                     saveSidebarState(true);
                 }
@@ -154,7 +158,7 @@
             // Close sidebar (for mobile)
             function closeSidebar() {
                 sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
+                // overlay.classList.add('hidden');
                 mainContent.classList.remove('lg:ml-64');
                 saveSidebarState(false);
             }
@@ -186,9 +190,9 @@
                 closeSidebarBtn.addEventListener('click', closeSidebar);
             }
 
-            if (overlay) {
-                overlay.addEventListener('click', closeSidebar);
-            }
+            // if (overlay) {
+            //     overlay.addEventListener('click', closeSidebar);
+            // }
 
             if (darkModeToggle) {
                 darkModeToggle.addEventListener('click', toggleDarkMode);
