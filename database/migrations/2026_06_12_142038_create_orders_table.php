@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('table_number');
             $table->enum('status', ['PAID', 'UNPAID'])->default('UNPAID');
-            $table->string('total_price');
+            $table->decimal('total_price', 10, 2);
             $table->string('seller');
             $table->timestamps();
         });
