@@ -233,7 +233,7 @@ $(document).ready(function () {
             };
 
             const totalPrice = $("#total_price").text().replace(" Ks", "");
-            orderDetail.order.total_price = parseFloat(totalPrice);
+            orderDetail.order.total_price = Number(totalPrice.replace(/,/g, ''));
             orderDetail.order.status = "UNPAID";
             orderDetail.order.table_number = tableId;
 
@@ -347,8 +347,7 @@ $(document).ready(function () {
             };
             const tableId = $("#selected-table").data("table-id");
             const totalPrice = $("#total_price").text().replace(" Ks", "");
-
-            orderAgain.order.total_price = totalPrice;
+            orderAgain.order.total_price = Number(totalPrice.replace(/,/g, ''));
             orderAgain.order.status = "UNPAID";
             orderAgain.order.table_number = tableId;
             $("#order-list tr").each(function () {
